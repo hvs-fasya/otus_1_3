@@ -17,9 +17,6 @@ func MostFrequent(text string, max int) []string {
 	var maxCount int
 	for _, w := range words {
 		var lowered = strings.ToLower(w)
-		if _, ok := wordFrequencyMap[lowered]; !ok {
-			wordFrequencyMap[lowered] = 0
-		}
 		wordFrequencyMap[lowered]++
 		if wordFrequencyMap[lowered] > maxCount {
 			maxCount = wordFrequencyMap[lowered]
