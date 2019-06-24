@@ -1,8 +1,8 @@
 package otus_1_3
 
 import (
-	"fmt"
 	"strings"
+	"unicode"
 )
 
 var punctuation = []string{`.`, `,`, `:`, `;`, `'`, `"`, `!`, `?`, `(`, `)`}
@@ -10,8 +10,9 @@ var punctuation = []string{`.`, `,`, `:`, `;`, `'`, `"`, `!`, `?`, `(`, `)`}
 //MostFrequent return 'max' most frequent words in 'text'
 func MostFrequent(text string, max int) []string {
 	var res = make([]string, 0)
-	text = rmPunctuation(text)
-	words := strings.Fields(text)
+	words := strings.FieldsFunc(text, func(r rune) bool {
+		return !unicode.IsLetter(r)
+	})
 	var wordFrequencyMap = make(map[string]int, 0) // map["word1": 2, "word2": 1]
 	var maxCount int
 	for _, w := range words {
@@ -28,7 +29,6 @@ func MostFrequent(text string, max int) []string {
 	for word, count := range wordFrequencyMap {
 		frequenciesArray[count] = append(frequenciesArray[count], word)
 	}
-	fmt.Printf("%+v\n", frequenciesArray)
 	for i := len(frequenciesArray) - 1; i > 0; i-- {
 		for _, word := range frequenciesArray[i] {
 			if len(res) >= max {
@@ -38,11 +38,4 @@ func MostFrequent(text string, max int) []string {
 		}
 	}
 	return res
-}
-
-func rmPunctuation(text string) string {
-	for _, p := range punctuation {
-		text = strings.Replace(text, p, "", -1)
-	}
-	return text
 }

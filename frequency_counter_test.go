@@ -11,6 +11,7 @@ func TestMostFrequent(t *testing.T) {
 		want []string
 	}{
 		{`a a B b c c d d e e f g `, []string{`a`, `b`, `c`, `d`, `e`}},
+		{`a: a, B, b, c, c, d, d, e, e, f, g!... `, []string{`a`, `b`, `c`, `d`, `e`}},
 		{`a a B b c c d d e e  f f g g  h h i i i j j j k `, []string{`i`, `j`, `a`, `b`, `c`, `d`, `e`, `f`, `g`, `h`}},
 		{``, []string{}},
 	}
